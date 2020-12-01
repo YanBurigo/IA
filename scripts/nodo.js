@@ -3,6 +3,7 @@ class nodo{
     prox;
     esquerda;
     direita;
+    fim;
     constructor() {
     }
 }
