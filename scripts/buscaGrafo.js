@@ -39,7 +39,6 @@ function entregar(estado, caminho){
   cont = 0;
   while(true){
     cont++;
-    console.log(cont);
     if(estado.fim=="x"){
       i++;
       caminho[i]=estado.valor;
