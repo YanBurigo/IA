@@ -36,8 +36,10 @@ function buscaGrafo(inicio, destino) {
 }
 
 function entregar(estado, caminho){
-
+  cont = 0;
   while(true){
+    cont++;
+    console.log(cont);
     if(estado.fim=="x"){
       i++;
       caminho[i]=estado.valor;
@@ -50,6 +52,13 @@ function entregar(estado, caminho){
       caminho[i]=estado.valor;
       estado = chamar(estado.fim);
     }
+  }
+  voltar(cont, caminho);
+}
+
+function voltar(cont, caminho){
+  for(var j=1; j<=cont+1; j++){
+    caminho[i+j]=caminho[i-j];
   }
 }
 
