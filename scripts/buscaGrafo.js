@@ -1,10 +1,15 @@
+//essa função faz a busca do caminho
 function buscaGrafo(inicio, destino) {
+  //a variavel selecionado é o quadrado que está atualmente selecionado
   selecionado = inicio;
+  //o vetor caminho é o vetor que guardará todo o caminho percorrido
   var caminho = [];
   i=0;
   while(true){
+    //o caminho irá receber o primeiro nodo e vai guardar
     caminho[i] = selecionado.valor;
     if((selecionado.esquerda!="null")&&(selecionado.direita!="null")){
+      //caso a estante que queremos esteja a esquerda ou a direita do caminho que estamos ele irá entrar nesse if ou else if, e irá sair do while
       if(destino==selecionado.esquerda){
         i++;
         caminho[i] = selecionado.esquerda;
@@ -16,26 +21,35 @@ function buscaGrafo(inicio, destino) {
         break;
       }
       else{
+        //caso ainda não tenhamos chegado ao destinho, então vai chamar o proximo nodo
         selecionado = chamar(selecionado.prox);
         i++
       }
     }
     else{
       if(selecionado.prox=="null"){
+        //se o proximo nodo for null, chegamos ao final do caminho sem achar resultado, então irá parar a busca
         break;
       }
       else{
+        //caso ainda não tenhamos chegado ao destinho, então vai chamar o proximo nodo
         selecionado = chamar(selecionado.prox);
         i++
       }
     }
   }
+  //aqui irá chamar o metodo entregar, no qual levará a estante pro X
   entregar(selecionado, caminho);
+  //imprime no console
   console.log(caminho);
+  //da o alerta na tela
   alert(caminho);
 }
 
 function entregar(estado, caminho){
+  //esse metodo vai funcionar parecido com a busca, porém vai levar até o X
+  //a ideia dele é descer até o máximo e depois ir pra direita até chegar no X
+  //guardando todo o caminho nesse processo
   cont = 0;
   while(true){
     cont++;
@@ -52,16 +66,19 @@ function entregar(estado, caminho){
       estado = chamar(estado.fim);
     }
   }
+  //aqui chama a volta do X para o local da estante
   voltar(cont, caminho);
 }
 
 function voltar(cont, caminho){
+  //ele só irá fazer o caminho inverso do metodo entregar
   for(var j=1; j<=cont+1; j++){
     caminho[i+j]=caminho[i-j];
   }
 }
 
 function chamar(prox){
+  //esse metodo convoca os nodos pelo nome
   if(prox=="p1"){
     return p1;
   }
@@ -280,6 +297,7 @@ function chamar(prox){
   }
 }
 
+//aqui é instanciado nodos, cada um com o seu valor, o seu proximo nodo, e as estantes que tem na direita e esquerda
 class nodo {}
 
 const p1 = new nodo();

@@ -1,3 +1,4 @@
+//classe modelo
 class nodo{
     valor;
     prox;

@@ -1,24 +1,254 @@
 <!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IA</title>
-    <link rel="shortcut icon" href="assets/favicon.png">
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
-</head>
-<body>
-    <div>
-        <img src="assets/matriz.png" />
+    <link rel="shortcut icon" href="assets/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+  </head>
+  <body>
+    <div id="IA">
+        <!--matriz contendo todos os caminhos possiveis de passar-->
+        <div style="float: left;">
+            <div class="quad" id="1"></div>
+            <div class="quad" style="background-color: gray;" id="2">1</div>
+            <div class="quad" style="background-color: gray;" id="3">2</div>
+            <div class="quad" style="background-color: gray;" id="4">3</div>
+            <div class="quad" style="background-color: gray;" id="5">4</div>
+            <div class="quad" style="background-color: gray;" id="6">5</div>
+            <div class="quad" style="background-color: gray;" id="7">6</div>
+            <div class="quad" style="background-color: gray;" id="8">7</div>
+            <div class="quad" style="background-color: gray;" id="9">8</div>
+            <div class="quad" style="background-color: gray;" id="10">9</div>
+            <div class="quad" style="background-color: gray;" id="11">10</div>
+            <div class="quad" id="12"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="13"></div>
+            <div class="quad" id="14"></div>
+            <div class="quad" id="15"></div>
+            <div class="quad" id="16"></div>
+            <div class="quad" id="17"></div>
+            <div class="quad" id="18"></div>
+            <div class="quad" id="19"></div>
+            <div class="quad" id="20"></div>
+            <div class="quad" id="21"></div>
+            <div class="quad" id="22"></div>
+            <div class="quad" id="23"></div>
+            <div class="quad" id="24"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="25"></div>
+            <div class="quad" style="background-color: gray;" id="26">11</div>
+            <div class="quad" style="background-color: gray;" id="27">12</div>
+            <div class="quad" style="background-color: gray;" id="28">13</div>
+            <div class="quad" style="background-color: gray;" id="29">14</div>
+            <div class="quad" style="background-color: gray;" id="30">15</div>
+            <div class="quad" style="background-color: gray;" id="31">16</div>
+            <div class="quad" style="background-color: gray;" id="32">17</div>
+            <div class="quad" style="background-color: gray;" id="33">18</div>
+            <div class="quad" style="background-color: gray;" id="34">19</div>
+            <div class="quad" style="background-color: gray;" id="35">20</div>
+            <div class="quad" id="36"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="37"></div>
+            <div class="quad" style="background-color: gray;" id="38">31</div>
+            <div class="quad" style="background-color: gray;" id="39">32</div>
+            <div class="quad" style="background-color: gray;" id="40">33</div>
+            <div class="quad" style="background-color: gray;" id="41">34</div>
+            <div class="quad" style="background-color: gray;" id="42">35</div>
+            <div class="quad" style="background-color: gray;" id="43">36</div>
+            <div class="quad" style="background-color: gray;" id="44">37</div>
+            <div class="quad" style="background-color: gray;" id="45">38</div>
+            <div class="quad" style="background-color: gray;" id="46">39</div>
+            <div class="quad" style="background-color: gray;" id="47">40</div>
+            <div class="quad" id="48"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="49"></div>
+            <div class="quad" id="50"></div>
+            <div class="quad" id="51"></div>
+            <div class="quad" id="52"></div>
+            <div class="quad" id="53"></div>
+            <div class="quad" id="54"></div>
+            <div class="quad" id="55"></div>
+            <div class="quad" id="56"></div>
+            <div class="quad" id="57"></div>
+            <div class="quad" id="58"></div>
+            <div class="quad" id="59"></div>
+            <div class="quad" id="60"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="61"></div>
+            <div class="quad" style="background-color: gray;" id="62">41</div>
+            <div class="quad" style="background-color: gray;" id="63">42</div>
+            <div class="quad" style="background-color: gray;" id="64">43</div>
+            <div class="quad" style="background-color: gray;" id="65">44</div>
+            <div class="quad" style="background-color: gray;" id="66">45</div>
+            <div class="quad" style="background-color: gray;" id="67">46</div>
+            <div class="quad" style="background-color: gray;" id="68">47</div>
+            <div class="quad" style="background-color: gray;" id="69">48</div>
+            <div class="quad" style="background-color: gray;" id="70">49</div>
+            <div class="quad" style="background-color: gray;" id="71">50</div>
+            <div class="quad" id="72"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="73"></div>
+            <div class="quad" style="background-color: gray;" id="74">51</div>
+            <div class="quad" style="background-color: gray;" id="75">52</div>
+            <div class="quad" style="background-color: gray;" id="76">53</div>
+            <div class="quad" style="background-color: gray;" id="77">54</div>
+            <div class="quad" style="background-color: gray;" id="78">55</div>
+            <div class="quad" style="background-color: gray;" id="79">56</div>
+            <div class="quad" style="background-color: gray;" id="80">57</div>
+            <div class="quad" style="background-color: gray;" id="81">58</div>
+            <div class="quad" style="background-color: gray;" id="82">59</div>
+            <div class="quad" style="background-color: gray;" id="83">60</div>
+            <div class="quad" id="84"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="85"></div>
+            <div class="quad" id="86"></div>
+            <div class="quad" id="87"></div>
+            <div class="quad" id="88"></div>
+            <div class="quad" id="89"></div>
+            <div class="quad" id="90"></div>
+            <div class="quad" id="91"></div>
+            <div class="quad" id="92"></div>
+            <div class="quad" id="93"></div>
+            <div class="quad" id="94"></div>
+            <div class="quad" id="95"></div>
+            <div class="quad" id="96"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="97"></div>
+            <div class="quad" style="background-color: gray;" id="98">61</div>
+            <div class="quad" style="background-color: gray;" id="99">62</div>
+            <div class="quad" style="background-color: gray;" id="100">63</div>
+            <div class="quad" style="background-color: gray;" id="101">64</div>
+            <div class="quad" style="background-color: gray;" id="102">65</div>
+            <div class="quad" style="background-color: gray;" id="103">66</div>
+            <div class="quad" style="background-color: gray;" id="104">67</div>
+            <div class="quad" style="background-color: gray;" id="105">68</div>
+            <div class="quad" style="background-color: gray;" id="106">69</div>
+            <div class="quad" style="background-color: gray;" id="107">70</div>
+            <div class="quad" id="108"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="109"></div>
+            <div class="quad" style="background-color: gray;" id="110">71</div>
+            <div class="quad" style="background-color: gray;" id="111">72</div>
+            <div class="quad" style="background-color: gray;" id="112">73</div>
+            <div class="quad" style="background-color: gray;" id="113">74</div>
+            <div class="quad" style="background-color: gray;" id="114">75</div>
+            <div class="quad" style="background-color: gray;" id="115">76</div>
+            <div class="quad" style="background-color: gray;" id="116">77</div>
+            <div class="quad" style="background-color: gray;" id="117">78</div>
+            <div class="quad" style="background-color: gray;" id="118">79</div>
+            <div class="quad" style="background-color: gray;" id="119">80</div>
+            <div class="quad" id="120"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="121"></div>
+            <div class="quad" id="122"></div>
+            <div class="quad" id="123"></div>
+            <div class="quad" id="124"></div>
+            <div class="quad" id="125"></div>
+            <div class="quad" id="126"></div>
+            <div class="quad" id="127"></div>
+            <div class="quad" id="128"></div>
+            <div class="quad" id="129"></div>
+            <div class="quad" id="130"></div>
+            <div class="quad" id="131"></div>
+            <div class="quad" id="132"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="133"></div>
+            <div class="quad" style="background-color: gray;" id="134">81</div>
+            <div class="quad" style="background-color: gray;" id="135">82</div>
+            <div class="quad" style="background-color: gray;" id="136">83</div>
+            <div class="quad" style="background-color: gray;" id="137">84</div>
+            <div class="quad" style="background-color: gray;" id="138">85</div>
+            <div class="quad" style="background-color: gray;" id="139">86</div>
+            <div class="quad" style="background-color: gray;" id="140">87</div>
+            <div class="quad" style="background-color: gray;" id="141">88</div>
+            <div class="quad" style="background-color: gray;" id="142">89</div>
+            <div class="quad" style="background-color: gray;" id="143">90</div>
+            <div class="quad" id="144"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="145"></div>
+            <div class="quad" style="background-color: gray;" id="146">91</div>
+            <div class="quad" style="background-color: gray;" id="147">92</div>
+            <div class="quad" style="background-color: gray;" id="148">93</div>
+            <div class="quad" style="background-color: gray;" id="149">94</div>
+            <div class="quad" style="background-color: gray;" id="150">95</div>
+            <div class="quad" style="background-color: gray;" id="151">96</div>
+            <div class="quad" style="background-color: gray;" id="152">97</div>
+            <div class="quad" style="background-color: gray;" id="153">98</div>
+            <div class="quad" style="background-color: gray;" id="154">99</div>
+            <div class="quad" style="background-color: gray;" id="155">100</div>
+            <div class="quad" id="156"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="157"></div>
+            <div class="quad" id="158"></div>
+            <div class="quad" id="159"></div>
+            <div class="quad" id="160"></div>
+            <div class="quad" id="161"></div>
+            <div class="quad" id="162"></div>
+            <div class="quad" id="163"></div>
+            <div class="quad" id="164"></div>
+            <div class="quad" id="165"></div>
+            <div class="quad" id="166"></div>
+            <div class="quad" id="167"></div>
+            <div class="quad" id="168"></div>
+        </div>
+        <div style="float: left;">
+            <div class="quad" id="169"></div>
+            <div class="quad" style="background-color: gray;" id="170">101</div>
+            <div class="quad" style="background-color: gray;" id="171">102</div>
+            <div class="quad" style="background-color: gray;" id="172">103</div>
+            <div class="quad" style="background-color: gray;" id="173">104</div>
+            <div class="quad" style="background-color: gray;" id="174">105</div>
+            <div class="quad" style="background-color: gray;" id="175">106</div>
+            <div class="quad" style="background-color: gray;" id="176">107</div>
+            <div class="quad" style="background-color: gray;" id="177">108</div>
+            <div class="quad" style="background-color: gray;" id="178">109</div>
+            <div class="quad" style="background-color: gray;" id="179">110</div>
+            <div class="quad" id="180"></div>
+        </div>
+        <!--botao que irá acionar a função, se o metodo for do Vue usa @click="funcao()", se não usa onclick="funcao()"-->
+      <button onclick="buscaGrafo(p1,84)">ok</button>
+      
     </div>
-    <div>
-        <textarea class="textcamp" placeholder="Escolha um robo"></textarea>
-        <textarea class="textcamp" placeholder="Escolha uma estante"></textarea>
-        <button class="botao" onclick="buscaGrafo(p1,87)">Buscar</button>
-    </div>
-    <div>
-        <p></p>
-    </div>
+    
     <script type="text/javascript" src="scripts/buscaGrafo.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        //instancia do vue, para deixar a pagina responsiva sem a necessidade de ficar atualizando
+      let app = new Vue({
+        el: "#IA",
+        //dados do vue, caso necessário
+        data: {
+          color: "branco",
+        },
+        //metodos do vue, caso necessário
+        methods: {
+          trocarCor(id) {
+            if (id == 1) {
+              document.getElementById("1").style.backgroundColor = "red";
+              document.getElementById("24").style.backgroundColor = "red";
+              setTimeout(() => {
+                document.getElementById("1").style.backgroundColor = "black";
+                document.getElementById("24").style.backgroundColor = "black";
+              }, 1000);
+            }
+          },
+        },
+      });
+    </script>
+  </body>
 </html>
