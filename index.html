@@ -253,7 +253,6 @@
           <input type="text" id="destino" name="num" style="width: 117px;"><br><br>
         </div>
         <div>
-          <!--botao que irá acionar a função, se o metodo for do Vue usa @click="funcao()", se não usa onclick="funcao()"-->
           <button @click="trocarCor()" style="padding-left: 110px; padding-right: 110px;">Buscar</button>
         </div>
         <div>
@@ -272,10 +271,12 @@
     <script type="text/javascript" src="scripts/busca.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-      //instancia do vue, para deixar a pagina responsiva sem a necessidade de ficar atualizando
+      //instancia do vue, para deixar a pagina reativa sem a necessidade de ficar atualizando
       let app = new Vue({
         el: "#IA",
-        //dados do vue, caso necessário
+        //dados do vue
+        //o K é responsável por converter a escolha do usuário em uma posição da matriz de caminhos
+        //já os r1, r2, r3, r4 e r5 são os robos, cada um tem o seu nodo inicial e posição inicial da matriz
         data: {
           k: [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],
           [11,26],[12,27],[13,28],[14,29],[15,30],[16,31],[17,32],[18,33],[19,34],[20,35],
@@ -293,19 +294,23 @@
           r4: ["p48",184],
           r5: ["p60",185],
         },
-        //metodos do vue, caso necessário
+        //metodos do vue
         methods: {
           trocarCor() {
+            //as duas primeiras linha são responsáveis por pegar a escolha de velocidade, já a terceira é responsável por pegar a escolha de destino
             var selects = document.getElementById('velocidade');
             var vel = selects.options[selects.selectedIndex].value;
             var escolha = document.getElementById('destino').value;
             var destino=-1;
+            //esse for converte o destino escolhido em uma posição da matriz usando a váriavel K
             for(var u=0; u<100;u++){
               if(this.k[u][0]==escolha){
                 destino=this.k[u][1];
               }
             }
+            //caso o destino informado seja um número correto, irá começar a execução do algoritmo do front
             if(destino!=-1){
+              //aqui pega a escolha do tipo de busca e chamará ela para cada um dos cinco robos
               var select = document.getElementById('algoritmo');
               var value = select.options[select.selectedIndex].value;
               if(value=="arvore"){
@@ -321,6 +326,7 @@
                 var robot3 = buscaGrafo(this.r3[0],destino)
                 var robot4 = buscaGrafo(this.r4[0],destino)
                 var robot5 = buscaGrafo(this.r5[0],destino)
+                //aqui irá transformar o vetor com erro num vetor de tamanho 10000, para na comparação de tamanho não haja erros
                 if(robot1[0]==-1){
                   for(var h=0; h<10000; h++){
                     robot1[h]=1;
@@ -347,12 +353,13 @@
                   }
                 }
               }
-              
+              //aqui irá gravar a posição da matriz de cada robo no cache do navegador para ser usado no método setInterval(), pois ele não consegue ler os dados do Vue
               localStorage.setItem("r1",this.r1[1])
               localStorage.setItem("r2",this.r2[1])
               localStorage.setItem("r3",this.r3[1])
               localStorage.setItem("r4",this.r4[1])
               localStorage.setItem("r5",this.r5[1])
+              //aqui irá comparar o tamanho do vetor de cada robo para achar o menor caminho, após escolher irá trocar a posição em que se encontra para a ultima posição que deverá chegar
               if((robot1.length <= robot2.length)&&(robot1.length <= robot3.length)&&(robot1.length <= robot4.length)&&(robot1.length<=robot5.length)&&(robot1.length!=10000)){
                 var cam = robot1;
                 alert("Quantidades de movimentos necessários: " + cam.length);
@@ -414,6 +421,8 @@
               }
               var i=0
               if(cam.length!=10000){
+                //caso não tenha erros irá iniciar o método setInterval(), que é responsável por executar o código de tempo em tempo
+                //esse método irá pintar todos os quadrados do front com sua cor original e depois irá pintar a posição do vetor retornado pela busca de vermelho, fazendo com que o robo se movimente pela tela
                 var intervalo = setInterval(() => {
 
                   for(var j=1; j<=185; j++){
@@ -435,9 +444,11 @@
 
                   document.getElementById(cam[i]).style.backgroundColor = "red";
                   i++
+                  //após percorrer todo o vetor, irá entrar nesse if, faznedo com que pare de executar o intervalo
                   if(i==cam.length){
                     clearInterval(intervalo);
                   }
+                  //a variável vel é a velocidade do intervalo, definida no início desse código
                 }, vel);
               }
             }

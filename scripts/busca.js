@@ -1,19 +1,23 @@
-
+//Essa função irá sortear e retornar um número aleatório
 function getProxCaminho(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-
+//Essa função irá realizar a busca em árvore, recebendo uma posição inicial e um destino e irá retornar um vetor de caminhos
 function buscaArvore(inicio, destino) {
+  //irá chamar o nodo inicial e atribuir na variavel selecionado
   robo = chamar(inicio);
   selecionado = robo;
+  //o vetor caminho irá guardar todo o caminho percorrido, e será retornado ao final do metodo
   var caminho = [];
   i=0;
   while(true){
+    //o caminho irá receber o primeiro nodo e vai guardar
     caminho[i] = selecionado.valor;
     if((selecionado.esquerda!="null")&&(selecionado.direita!="null")){
+      //caso a estante que queremos esteja a esquerda ou a direita do caminho que estamos ele irá entrar nesse if ou else if, e irá sair do while
       if(destino==selecionado.esquerda){
         i++;
         caminho[i] = selecionado.esquerda;
@@ -25,8 +29,11 @@ function buscaArvore(inicio, destino) {
         break;
       }
       else{
+        //caso ainda não tenhamos chegado ao destinho, então vai chamar o proximo nodo
         while(true){
+          //irá chamar a função de sorteio e vai guardar o proximo caminho na variável proximo
           var proximo = selecionado.prox[getProxCaminho(0,selecionado.prox.length)];
+          //vai retirar a letra P da frente e verificar se não é igual a casa da onde veio, se não for vai chamar o proximo caminho e vai sair do while
           var nome = proximo.substr(1);
           if((caminho[i-1] != nome) && (nome != "1" && nome != "169"  && nome != "12")){
             selecionado = chamar(proximo);
@@ -36,6 +43,7 @@ function buscaArvore(inicio, destino) {
         }
       }
     }
+    //Irá funcionar igual ao else de cima, mas caso a esquerda e direita forem null, então irá chamar o proximo nodo
     else{
       while(true){
         var proximo = selecionado.prox[getProxCaminho(0,selecionado.prox.length)];
@@ -48,12 +56,14 @@ function buscaArvore(inicio, destino) {
       }
     }
   }
-  
+  //Após realizada a busca irá chamar o metodo entregar, que será responsável por levar a estante até o X
   entregar(selecionado, caminho);
+  //Por fim retorna o vetor de caminhos percorridos.
   return caminho;
 }
 
 function entregar(estado, caminho){
+  //Método responsável por levar a estante até o X
   cont = 0;
   while(true){
     cont++;
@@ -78,7 +88,7 @@ function voltar(cont, caminho){
     caminho[i+j]=caminho[i-j];
   }
 }
-//Modificar
+//A função de busca por grafo é praticamente igual a da árvore, com a única diferença é que não deixa passar por caminhos já passados anteriormente
 function buscaGrafo(inicio, destino) {
     robo = chamar(inicio);
     selecionado = robo;
@@ -120,6 +130,8 @@ function buscaGrafo(inicio, destino) {
               break;
             }
             sair++;
+            //caso não encontre um caminho irá ficar em loop infinito
+            //então quando percorrer esse loop 100000 vezes, o sair atingirá o numero 100000 e entrará nesse if, que será responsável por marcar um erro e sair do loop
             if(sair==100000){
               erro++;
               sair=0;
@@ -156,14 +168,17 @@ function buscaGrafo(inicio, destino) {
           
         }
       }
+      //caso aconteça um ou mais erros, irá sair do primeiro loop
       if(erro>0){
         break;
       }
     }
+    //se não tiver erros, irá chamar a função de entregar a estante ao X e irá retornar o caminho
     if(erro==0){
       entregar(selecionado, caminho);
       return caminho;
     }
+    //caso tenha erros, irá marcar o primeiro elemente do vetor como -1 e irá retornar esse caminho, esse -1 será tratado no front, impedindo que o algoritmo do front seja executado
     else{
       caminho[0]=-1;
       return caminho;
@@ -337,6 +352,7 @@ function chamar(prox) {
 }
 
 //aqui é instanciado nodos, cada um com o seu valor, o seu proximo nodo, e as estantes que tem na direita e esquerda
+//os que tem a variável fim, é o caminho que irá percorrer pra entregar as estantes
 class nodo {}
 
 const p1 = new nodo();
