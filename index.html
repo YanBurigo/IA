@@ -313,64 +313,75 @@
               //aqui pega a escolha do tipo de busca e chamará ela para cada um dos cinco robos
               var select = document.getElementById('algoritmo');
               var value = select.options[select.selectedIndex].value;
-              if(value=="arvore"){
-                var robot1 = buscaArvore(this.r1[0],destino)
-                var robot2 = buscaArvore(this.r2[0],destino)
-                var robot3 = buscaArvore(this.r3[0],destino)
-                var robot4 = buscaArvore(this.r4[0],destino)
-                var robot5 = buscaArvore(this.r5[0],destino)
-              }
-              else{
-                var robot1 = buscaGrafo(this.r1[0],destino)
-                var robot2 = buscaGrafo(this.r2[0],destino)
-                var robot3 = buscaGrafo(this.r3[0],destino)
-                var robot4 = buscaGrafo(this.r4[0],destino)
-                var robot5 = buscaGrafo(this.r5[0],destino)
-                //aqui irá transformar o vetor com erro num vetor de tamanho 10000, para na comparação de tamanho não haja erros
-                if(robot1[0]==-1){
-                  for(var h=0; h<10000; h++){
-                    robot1[h]=1;
-                  }
-                }
-                if(robot2[0]==-1){
-                  for(var h=0; h<10000; h++){
-                    robot2[h]=1;
-                  }
-                }
-                if(robot3[0]==-1){
-                  for(var h=0; h<10000; h++){
-                    robot3[h]=1;
-                  }
-                }
-                if(robot4[0]==-1){
-                  for(var h=0; h<10000; h++){
-                    robot4[h]=1;
-                  }
-                }
-                if(robot5[0]==-1){
-                  for(var h=0; h<10000; h++){
-                    robot5[h]=1;
-                  }
-                }
-              }
+
               //aqui irá gravar a posição da matriz de cada robo no cache do navegador para ser usado no método setInterval(), pois ele não consegue ler os dados do Vue
               localStorage.setItem("r1",this.r1[1])
               localStorage.setItem("r2",this.r2[1])
               localStorage.setItem("r3",this.r3[1])
               localStorage.setItem("r4",this.r4[1])
               localStorage.setItem("r5",this.r5[1])
-              //aqui irá comparar o tamanho do vetor de cada robo para achar o menor caminho, após escolher irá trocar a posição em que se encontra para a ultima posição que deverá chegar
-              if((robot1.length <= robot2.length)&&(robot1.length <= robot3.length)&&(robot1.length <= robot4.length)&&(robot1.length<=robot5.length)&&(robot1.length!=10000)){
+              //aqui começa a definir qual robo irá buscar
+              var escolhaRobo
+              //esses primeiros ifs são responsáveis por ver se o robo já está na estante escolhida, se já estiver, ele será escolhido
+              if(destino==this.r1[1]){
+                escolhaRobo=1;
+              }
+              else if(destino==this.r2[1]){
+                escolhaRobo=2
+              }
+              else if(destino==this.r3[1]){
+                escolhaRobo=3
+              }
+              else if(destino==this.r4[1]){
+                escolhaRobo=4
+              }
+              else if(destino==this.r5[1]){
+                escolhaRobo=5
+              }
+              else{
+                //caso nenhum robo esteja na estante, é sorteado um robo para buscar
+                escolhaRobo = getProxCaminho(1, 6)
+              }
+              if(escolhaRobo==1){
+                //o robo escolhido irá verificar qual foi algoritmo escolhido
+                if(value=="arvore"){
+                  var robot1 = buscaArvore(this.r1[0],destino)
+                }
+                else{
+                  //caso não encontre um caminho na busca por grafo, 
+                  while(true){
+                    var robot1 = buscaGrafo(this.r1[0],destino)
+                    if(robot1[0]!=-1){
+                      break;
+                    }
+                  }
+                }
+                //a variável cam recebe o caminho do robo escolhido
                 var cam = robot1;
                 alert("Quantidades de movimentos necessários: " + cam.length);
+                //a variável r1[0] irá receber a penultima posição do cam e irá adicionar a letra P na frente
                 this.r1[0]="p"+cam[cam.length-2];
+                //caso a posição inicial do r1 seja igual o destino, então irá remover essa posição, para que o caminho não fique repetido
                 if(this.r1[1]==destino){
                   cam.shift();
                 }
+                //a variável r1[1] receberá a ultima posição do caminho
                 this.r1[1]=cam[cam.length-1];
+                //irá atualizar o valor de r1 no cache
                 localStorage.setItem("r1",this.r1[1])
               }
-              else if((robot2.length <= robot1.length)&&(robot2.length <= robot3.length)&&(robot2.length <= robot4.length)&&(robot2.length<=robot5.length)&&(robot2.length!=10000)){
+              else if(escolhaRobo==2){
+                if(value=="arvore"){
+                  var robot2 = buscaArvore(this.r2[0],destino)
+                }
+                else{
+                  while(true){
+                    var robot2 = buscaGrafo(this.r2[0],destino)
+                    if(robot2[0]!=-1){
+                      break;
+                    }
+                  }
+                }
                 var cam = robot2;
                 alert("Quantidades de movimentos necessários: " + cam.length);
                 this.r2[0]="p"+cam[cam.length-2];
@@ -380,8 +391,18 @@
                 this.r2[1]=cam[cam.length-1];
                 localStorage.setItem("r2",this.r2[1])
               }
-              else if((robot3.length <= robot1.length)&&(robot3.length <= robot2.length)&&(robot3.length <= robot4.length)&&(robot3.length<=robot5.length)&&(robot3.length!=10000)){
-
+              else if(escolhaRobo==3){
+                if(value=="arvore"){
+                  var robot3 = buscaArvore(this.r3[0],destino)
+                }
+                else{
+                  while(true){
+                    var robot3 = buscaGrafo(this.r3[0],destino)
+                    if(robot3[0]!=-1){
+                      break;
+                    }
+                  } 
+                }
                 var cam = robot3;
                 alert("Quantidades de movimentos necessários: " + cam.length);
                 this.r3[0]="p"+cam[cam.length-2];
@@ -390,9 +411,19 @@
                 }
                 this.r3[1]=cam[cam.length-1];
                 localStorage.setItem("r3",this.r3[1])
-                
               }
-              else if((robot4.length <= robot1.length)&&(robot4.length <= robot2.length)&&(robot4.length <= robot3.length)&&(robot4.length<=robot5.length)&&(robot4.length!=10000)){
+              else if(escolhaRobo==4){
+                if(value=="arvore"){
+                  var robot4 = buscaArvore(this.r4[0],destino)
+                }
+                else{
+                  while(true){
+                    var robot4 = buscaGrafo(this.r4[0],destino)
+                    if(robot4[0]!=-1){
+                      break;
+                    }
+                  }
+                }
                 var cam = robot4;
                 alert("Quantidades de movimentos necessários: " + cam.length);
                 this.r4[0]="p"+cam[cam.length-2];
@@ -403,8 +434,18 @@
                 localStorage.setItem("r4",this.r4[1])
               }
               else{
-                if(robot5.length!=10000){
-                  var cam = robot5;
+                if(value=="arvore"){
+                  var robot5 = buscaArvore(this.r5[0],destino)
+                }
+                else{
+                  while(true){
+                    var robot5 = buscaGrafo(this.r5[0],destino)
+                    if(robot5[0]!=-1){
+                      break;
+                    }
+                  }  
+                }
+                var cam = robot5;
                   alert("Quantidades de movimentos necessários: " + cam.length);
                   this.r5[0]="p"+cam[cam.length-2];
                   if(this.r5[1]==destino){
@@ -412,46 +453,39 @@
                   }
                   this.r5[1]=cam[cam.length-1];
                   localStorage.setItem("r5",this.r5[1])
-                }
-                else{
-                  var cam = robot5;
-                  alert("Caminho não encontrado\nTente novamente!");
-                }
-                
               }
+
               var i=0
-              if(cam.length!=10000){
-                //caso não tenha erros irá iniciar o método setInterval(), que é responsável por executar o código de tempo em tempo
-                //esse método irá pintar todos os quadrados do front com sua cor original e depois irá pintar a posição do vetor retornado pela busca de vermelho, fazendo com que o robo se movimente pela tela
-                var intervalo = setInterval(() => {
+              //O método setInterval() é responsável por executar o código de tempo em tempo
+              //esse método irá pintar todos os quadrados do front com sua cor original e depois irá pintar a posição do vetor retornado pela busca de vermelho, fazendo com que o robo se movimente pela tela
+              var intervalo = setInterval(() => {
 
-                  for(var j=1; j<=185; j++){
-                    if((j>=2 && j<=11)||(j>=26 && j<=35)||(j>=38 && j<=47)||(j>=62 && j<=71)||(j>=74 && j<=83)||(j>=98 && j<=107)||(j>=110 && j<=119)||(j>=134 && j<=143)||(j>=146 && j<=155)||(j>=170 && j<=179)||(j>=181 && j<=185)){
-                      document.getElementById(j).style.backgroundColor = "grey";
-                      if((j==localStorage.getItem("r1"))||(j==localStorage.getItem("r2"))||(j==localStorage.getItem("r3"))||(j==localStorage.getItem("r4"))||(j==localStorage.getItem("r5"))){
-                        if(j!=destino){
-                          document.getElementById(j).style.backgroundColor = "red";
-                        }   
-                      }
+                for(var j=1; j<=185; j++){
+                  if((j>=2 && j<=11)||(j>=26 && j<=35)||(j>=38 && j<=47)||(j>=62 && j<=71)||(j>=74 && j<=83)||(j>=98 && j<=107)||(j>=110 && j<=119)||(j>=134 && j<=143)||(j>=146 && j<=155)||(j>=170 && j<=179)||(j>=181 && j<=185)){
+                    document.getElementById(j).style.backgroundColor = "grey";
+                    if((j==localStorage.getItem("r1"))||(j==localStorage.getItem("r2"))||(j==localStorage.getItem("r3"))||(j==localStorage.getItem("r4"))||(j==localStorage.getItem("r5"))){
+                      if(j!=destino){
+                        document.getElementById(j).style.backgroundColor = "red";
+                      }   
                     }
-                    else if(j==180){
-                      document.getElementById(j).style.backgroundColor = "green";
-                    }
-                    else{
-                      document.getElementById(j).style.backgroundColor = "white";
-                    }  
                   }
+                  else if(j==180){
+                    document.getElementById(j).style.backgroundColor = "green";
+                  }
+                  else{
+                    document.getElementById(j).style.backgroundColor = "white";
+                  }  
+                }
 
-                  document.getElementById(cam[i]).style.backgroundColor = "red";
-                  i++
-                  //após percorrer todo o vetor, irá entrar nesse if, faznedo com que pare de executar o intervalo
-                  if(i==cam.length){
-                    clearInterval(intervalo);
-                  }
-                  //a variável vel é a velocidade do intervalo, definida no início desse código
-                }, vel);
-              }
-            }
+                document.getElementById(cam[i]).style.backgroundColor = "red";
+                i++
+                //após percorrer todo o vetor, irá entrar nesse if, faznedo com que pare de executar o intervalo
+                if(i==cam.length){
+                  clearInterval(intervalo);
+                }
+                //a variável vel é a velocidade do intervalo, definida no início desse código
+              }, vel);
+            }            
             else{
               alert("Digite um valor válido!!!");
             }
